@@ -1,0 +1,1 @@
+the difference between v2 and v1 is that I am performing the alignment step separately. I am a little bit worried about whether or not Mafft is thread safe when you call multiple processes of mafft simultaneously. I know it's mostly thread safe when you run a single instance of it. I'm using snakemake to handle all of the multiprocessing in v2.

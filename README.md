@@ -10,7 +10,7 @@ This is just a page with links to the different parts of the analysis
 - a tool to quantify the conservation of potential slim sequences from a database of multiple sequence alignments.
 - intended for general use
 
-## Benchmark
+## Benchmark - [benchmark](https://github.com/jacksonh1/slim_conservation_benchmark)
 - intended for record keeping purposes but it is documented with notebooks. 
 - Pipeline 1 is used here to create the benchmark
 

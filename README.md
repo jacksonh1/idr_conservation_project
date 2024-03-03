@@ -2,14 +2,17 @@
 
 This is just a page with links to the different parts of the analysis
 
-Part 1 of the tools - intended to be released for use
+## Pipeline 1 - [orthogroup generation](https://github.com/jacksonh1/orthogroup_generation) 
+- a tool to access a local version of the orthoDB database and generate orthogroups prepared for conservation analysis
+- intended for general use
 
+## Pipeline 2 - [quantification of SLiM conservation](https://github.com/jacksonh1/motif_conservation_in_IDRs)
+- a tool to quantify the conservation of potential slim sequences from a database of multiple sequence alignments.
+- intended for general use
 
-Part 2 of the tools - intended to be released for use
+## Benchmark
+- intended for record keeping purposes but it is documented with notebooks. 
+- Pipeline 1 is used here to create the benchmark
 
-
-Benchmark - intended for record keeping purposes but it is documented with notebooks. Part 1 of the tools are used here.
-
-
-Instructions for Keating lab members
-- see [keating lab member instructions](instructions_for_Keating_lab_members.md)
+## Instructions for Keating lab members using the precomputed database
+- see [keating lab member instructions](./shared_keating_lab_database_records/instructions_for_Keating_lab_members.md)

@@ -65,8 +65,8 @@ Here is the contents of that file:
     The commands are logged in `/mnt/shared/shared_data/orthoDB/orthodb_preprocessed_databases/human_orthogroups_v3/readme_commands_that_were_executed.md`
 
     I then changed the permissions of the directories `./CODE`, `./orthodb_data`, and `./orthodb_preprocessed_databases` such that anyone in the "slims" group can access them. I used commands like: 
-    `sudo chgrp -R slims ./orthodb_preprocessed_databases/`
-    `sudo chmod -R g+w ./orthodb_preprocessed_databases/`
+    `sudo chgrp -R slims ./CODE/`
+    `sudo chmod -R g+w ./CODE/`
 
 ## using the pipeline
 

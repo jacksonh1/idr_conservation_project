@@ -1,3 +1,5 @@
+Written by Jackson Halpin <br>
+
 # Short linear motif conservation - landing page
 
 This is just a page with links to the different parts of the analysis

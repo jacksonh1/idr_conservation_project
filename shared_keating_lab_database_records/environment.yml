@@ -1,0 +1,41 @@
+name: odb_conservation_pipeline
+channels:
+  - pytorch
+  - conda-forge
+  - bioconda
+dependencies:
+  - python-dotenv
+  - importlib_resources
+  - pytorch
+  - scikit-learn
+  - scipy
+  - seaborn
+  - torchvision
+  - tabulate
+  - torchvision
+  - tornado
+  - yaml
+  - openpyxl
+  - attrs
+  - pip
+  - pandas
+  - numpy
+  - jupyter
+  - biopython
+  - cd-hit
+  - ca-certificates
+  - certifi
+  - openssl
+  - mafft
+  - python-dotenv
+  - pyprojroot
+  - tabulate
+  - pip:
+    - alfpy
+    - fair-esm
+    - logomaker
+    - tqdm
+    - transformers
+    - pairk
+    - ./slim_conservation_orthogroup_generation
+    - ./slim_conservation_scoring

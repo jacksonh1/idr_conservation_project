@@ -14,98 +14,47 @@ curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mi
 bash Miniforge3-Linux-x86_64.sh
 ```
 
-install part 1 of the preconfigured source tools (accessing the orthodb database):
+install the tools that I wrote and preconfigured:
 ```bash
-cd /mnt/shared/shared_data/orthoDB/CODE/orthogroup_generation
-mamba env create -f environment_linux.yml
-mamba activate odb_groups_x86
-pip install -e .
+cd /mnt/shared/shared_data/orthoDB/CODE/
+make environment
 ```
-install part 2 of the preconfigured source tools (running the conservation pipeline):
+
+activate the environment to use the tools:
 ```bash
-cd /mnt/shared/shared_data/orthoDB/CODE/motif_conservation_in_IDRs
-mamba env create -f environment_linux.yml
-mamba activate slim_conservation
-pip install -e .
+mamba activate odb_conservation_pipeline
 ```
+
+see [./environment_setup.md](./environment_setup.md) for how this environment was set up.
+
 
 ## using the pipeline
 
 Read the readme files for the individual tools to learn how to use them. Pay particular attention to the parameters that you can adjust. Look at the `examples/` directory in each repo to see how the tools can be used.
-look at `/mnt/shared/shared_data/orthoDB/CODE/example_analysis_2_Joels_table/` for an example analysis. Here are the steps that were run:<br>
+look at `/mnt/shared/shared_data/orthoDB/example_analysis_2_Joels_table/` for an example analysis. Here are the steps that were run:<br>
 map the uniprot ids in FP4Y_motif_SLIMSearch4_data.csv to orthodb gene ids:
 ```bash
-mamba activate odb_groups_x86
-python "../orthogroup_generation/src/local_scripts/map_uniprotid.py" -i "./FP4Y_motif_SLIMSearch4_data.csv" --uni_column "ProteinAcc"
+mamba activate odb_conservation_pipeline
+"odb_groups-map_uniprotid" -i "./FP4Y_motif_SLIMSearch4_data.csv" --uni_column "ProteinAcc"
 ```
 Then run the conservation score pipeline:
 ```bash
 mamba activate slim_conservation
-python "../motif_conservation_in_IDRs/src/local_scripts/conservation_analysis.py" -c ./step2_params.yaml -n 6
+"slim_conservation_scoring-pipeline" -c ./step2_params.yaml -n 6
 ```
 
-In general, the scripts that are intended to be used the most are located in `/mnt/shared/shared_data/orthoDB/CODE/orthogroup_generation/src/local_scripts/` and `/mnt/shared/shared_data/orthoDB/CODE/motif_conservation_in_IDRs/src/local_scripts/`. You can add these to your PATH variable to make them easier to access. For example, add the following to your `~/.bashrc` file:
+The list of available command line tools are explained in the readme files of the individual repositories, but here is a list:
+- `odb_groups-map_uniprotid`
+- `odb_groups-orthogroup_pipeline`
+- `odb_groups-pipeline_all_genes_in_species`
+- `odb_groups-pipeline_input_table`
+- `odb_groups-create_filemap`
+- `slim_conservation_scoring-pipeline`
+
+You can find out more about each script by running any of them with the `--help` flag. For example:
 ```bash
-export PATH="/mnt/shared/shared_data/orthoDB/CODE/orthogroup_generation/src/local_scripts/:$PATH"
-export PATH="/mnt/shared/shared_data/orthoDB/CODE/motif_conservation_in_IDRs/src/local_scripts/:$PATH"
-```
-Then you can run the scripts from anywhere on the system. For example:
-```bash
-map_uniprotid.py -h
-conservation_analysis.py -h
-```
-will show the help messages for the scripts.
-
-## record of how I set up the orthodb database
-Here are details for how I set up the orthodb database (also in `/mnt/shared/shared_data/orthoDB/database_setup_information.md`):
-
-I downloaded the orthoDB data from the orthoDB website: https://data.orthodb.org/download/
-
-downloaded orthoDB tools that I wrote:
-```bash
-git clone https://github.com/jacksonh1/orthogroup_generation.git
+"odb_groups-map_uniprotid" --help
 ```
 
-edited `/mnt/shared/shared_data/orthoDB/CODE/orthogroup_generation/src/local_env_variables/.env` file to add the path to the downloaded orthoDB files:
-```
-ORTHODB_DATA_DIR = '/mnt/shared/shared_data/orthoDB/orthodb_data/'
-```
+To see how I set up the orthoDB database, see [./orthoDB_database_setup.md](./orthoDB_database_setup.md).
 
-Downloaded and installed mambaforge: 
-```bash
-curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
-bash Miniforge3-Linux-x86_64.sh
-```
-
-created a virtual environment with the required tools:
-```bash
-cd /mnt/shared/shared_data/orthoDB/CODE/orthogroup_generation
-mamba env create -f environment_linux.yml
-mamba activate odb_groups_x86
-pip install -e .
-```
-
-downloaded conservation tools that I wrote:
-```bash
-git clone https://github.com/jacksonh1/motif_conservation_in_IDRs.git
-```
-added iupred directory to `/mnt/shared/shared_data/orthoDB/CODE/motif_conservation_in_IDRs/src/local_env_variables/.env`:
-```bash
-IUPRED2A_LIB_DIR = '/mnt/shared/shared_data/iupred2a'
-```
-
-created a new virtual environment for these tools:
-```bash
-cd /mnt/shared/shared_data/orthoDB/CODE/motif_conservation_in_IDRs
-mamba env create -f environment_linux.yml
-mamba activate slim_conservation
-pip install -e .
-```
-
-Then I created the new "database" using these tools.<br>
-see `/mnt/shared/shared_data/orthoDB/orthodb_preprocessed_databases/human_orthogroups_v3` for all of the code to do that. 
-The commands are logged in `/mnt/shared/shared_data/orthoDB/orthodb_preprocessed_databases/human_orthogroups_v3/readme_commands_that_were_executed.md`. <br>A copy of the scripts and markdown files is located here in the `./orthodb_preprocessed_databases` directory (relative to this file) - [link](./orthodb_preprocessed_databases/human_orthogroups_v3/).
-
-I then changed the permissions of the directories `./CODE`, `./orthodb_data`, and `./orthodb_preprocessed_databases` such that anyone in the "slims" group can access them. I used commands like: 
-`sudo chgrp -R slims ./CODE/`
-`sudo chmod -R g+w ./CODE/`

@@ -31,7 +31,8 @@ see [./environment_setup.md](./environment_setup.md) for how this environment wa
 ## using the pipeline
 
 Read the readme files for the individual tools to learn how to use them. Pay particular attention to the parameters that you can adjust. Look at the `examples/` directory in each repo to see how the tools can be used.
-look at `/mnt/shared/shared_data/orthoDB/example_analysis_2_Joels_table/` for an example analysis. Here are the steps that were run:<br>
+
+You can also look at `/mnt/shared/shared_data/orthoDB/example_analysis_2_Joels_table/` for an example analysis. Here are the steps that were run:<br>
 map the uniprot ids in FP4Y_motif_SLIMSearch4_data.csv to orthodb gene ids:
 ```bash
 mamba activate odb_conservation_pipeline
@@ -39,7 +40,6 @@ mamba activate odb_conservation_pipeline
 ```
 Then run the conservation score pipeline:
 ```bash
-mamba activate slim_conservation
 "slim_conservation_scoring-pipeline" -c ./step2_params.yaml -n 6
 ```
 
